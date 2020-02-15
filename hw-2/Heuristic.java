@@ -216,10 +216,6 @@ public class Heuristic {
 
         System.out.println("Objective function sorting ratio: " + x);
 
-        for(int i = 0; i < items; i++) {
-            System.out.println(index[i] + "\t" + values[i] + "\t" + weight[i] + "\t" + ratio[i]);
-        }
-
     }
 
 }

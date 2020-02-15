@@ -10,21 +10,37 @@ public class Create_instance {
     }
 
     private void range() {
-        int vmax, vmin, wmax, wmin, n;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("How many items do you have? -> ");
-        n = sc.nextInt();
-        System.out.println("Minimum value -> ");
-        vmin = sc.nextInt();
-        System.out.println("Maximum value -> ");
-        vmax = sc.nextInt();
-        System.out.println("Minimum weight -> ");
-        wmin = sc.nextInt();
-        System.out.println("Maximum weight -> ");
-        wmax = sc.nextInt();
+            int vmax, vmin, wmax, wmin, n;
+            Scanner sc = new Scanner(System.in);
+            boolean validate = false;
+
+            do {
+            System.out.print("How many items do you have? -> ");
+            n = sc.nextInt();
+            System.out.print("Minimum value -> ");
+            vmin = sc.nextInt();
+            System.out.print("Maximum value -> ");
+            vmax = sc.nextInt();
+            System.out.print("Minimum weight -> ");
+            wmin = sc.nextInt();
+            System.out.print("Maximum weight -> ");
+            wmax = sc.nextInt();
+
+            if((n >= 0) && (vmin >= 0) && (vmax >= 0) && (wmin >= 0) && (wmin >= 0) && (vmax > vmin) && (wmax > wmin)) {
+                validate = true;
+            } else { 
+                System.out.println("** All data must be positive integers **");
+                if((vmax <= vmin) || (wmax <= wmin)) { System.out.println("** The maximun values must be greater than the minimum values **"); }
+            }
+
+        } while(validate == false);
 
         Create_instance create_file = new Create_instance();
         create_file.file(n, vmin, vmax, wmin, wmax);
+    }
+
+    private void validate() {
+        
     }
 
     private void file(int n, int vmin, int vmax, int wmin, int wmax) {
@@ -56,7 +72,4 @@ public class Create_instance {
 
         }
     }
-
-
-
 }
