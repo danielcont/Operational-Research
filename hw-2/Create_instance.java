@@ -19,7 +19,7 @@ public class Create_instance {
             System.out.print("How many items do you have? -> ");
             n = sc.nextInt();
             if(n > 0) {
-                System.out.println(i);
+                i = 1;
             } else { System.out.println("** Data must be positive integer **"); }
 
         } while (i == 0);
