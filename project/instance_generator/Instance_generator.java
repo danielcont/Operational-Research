@@ -4,6 +4,7 @@ Class that generates random instances for the Generalized Assignment Problem and
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Date;
@@ -44,12 +45,23 @@ public class Instance_generator {
             try {
                 // Delay to get different time in the instances file name
                 Thread.sleep(1000);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd - HH mm ss");
                 Date date = new Date();
                 String strDate = dateFormat.format(date);
-                path = path + m + "x" + n + " " + strDate;
+                path = path + m + "x" + n + " " + strDate + ".txt";
                 try {
-                    FileWriter instance = new FileWriter(path);
+                    // Path to access to the 'instances' folder
+                    File f = new File(System.getProperty("user.dir"));
+                    File Parent = f.getParentFile();
+                    String instances_folder = Parent.getPath() + File.separator + "instances";
+
+                    FileWriter instance = new FileWriter(new File(instances_folder, path));
+
+                    String text = ("Hello, this instance #" + instances);
+
+                    instance.write(text);
+
+                    instance.close();
                     
                 } catch(IOException e) {
                     System.out.println("An error ocurred.");
