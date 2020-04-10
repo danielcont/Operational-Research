@@ -13,7 +13,8 @@ public class Instance_generator {
 
     public static void main(String[] args) {
         Instance_generator instance = new Instance_generator();
-        instance.input_data();
+        //instance.input_data();
+        instance.create_file(1, 3, 5, 1.0, 9.0, 11, 19);
     }
 
     // Method to ask user for input data. PROMPT ONLY
@@ -35,11 +36,17 @@ public class Instance_generator {
         System.out.print("Maximum cost -> ");
         double cmax = sc.nextDouble();
 
-        create_file(instances, m, n, cmin, cmax);
+        System.out.print("Minimum resource -> ");
+        int rmin = sc.nextInt();
+
+        System.out.print("Maximum resource -> ");
+        int rmax = sc.nextInt();
+
+        create_file(instances, m, n, cmin, cmax, rmin, rmax);
     }
 
     // Method that creates a file
-    private void create_file(int instances, int m, int n, double cmin, double cmax) {
+    private void create_file(int instances, int m, int n, double cmin, double cmax, int rmin, int rmax) {
         do {
             String path = "";
             try {
@@ -56,10 +63,43 @@ public class Instance_generator {
                     String instances_folder = Parent.getPath() + File.separator + "instances";
 
                     FileWriter instance = new FileWriter(new File(instances_folder, path));
+                    
+                    int[][][] values = new int[2][m][n];
+                    String txt = ""; 
 
-                    String text = ("Hello, this instance #" + instances);
+                    // Write cost and resources needed for each task to each agent
+                    for(int table = 0; table < 2; table++) {
+                        for(int i = 0; i < m; i++) {
+                            for(int j = 0; j < n; j++) {
+                                int random_value;
+                                if(table == 0) {
+                                    random_value = (int)(Math.random() * (cmax - cmin + 1) + cmin);
+                                } else {
+                                    random_value = (int)(Math.random() * (rmax - rmin + 1) + rmin);
+                                } 
+                                
+                                values[table][i][j] = random_value;
+                                txt = values[table][i][j] + "\t";
+                                instance.write(txt);
+                            }
+                            instance.write("\n");
+                        }
+                        instance.write("\n\n");
+                    }
 
-                    instance.write(text);
+                    // Write resources available from agents
+                    float sum_resources;
+                    float d = (float)(5 * m + 25) / (float)(15 * (m + 1));
+                    for(int i = 0; i < m; i++) {
+                        sum_resources = 0;
+                        for(int j = 0; j < n; j++) {
+                            sum_resources += values[1][i][j];
+                        }
+                        sum_resources /= m;
+                        int bi = (int)(1.8 * d * sum_resources);
+                        //txt = bi + "\n";
+                        instance.write(bi + "\n");
+                    }
 
                     instance.close();
                     
