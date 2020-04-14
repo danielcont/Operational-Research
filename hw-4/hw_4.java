@@ -10,7 +10,8 @@ public class hw_4 {
         int[][] distance = tsp.get_distances();
         //System.out.println(Arrays.deepToString(distance));
         
-        tsp.first_found(tour, distance);
+        //tsp.first_found(tour, distance);
+        tsp.best_found(tour, distance);
     }
 
     private int[][] get_distances(){
@@ -69,6 +70,38 @@ public class hw_4 {
         } while(exit <= 20);
     }
 
+    // Best Found method
+    private void best_found(int[] tour, int[][] distance) {
+        int[] subTour = tour.clone();
+        int[] slice = {subTour[0]};
+        int[] new_tour = IntStream.concat(Arrays.stream(subTour), Arrays.stream(slice)).toArray();
+
+        int best_distance = calculate_distance(new_tour, distance);
+        System.out.println("First tour: " + Arrays.toString(new_tour) + "\t" + best_distance);
+
+        int[] actual_tour = new_tour.clone();
+        int new_distance;
+        boolean exit = false;
+        do {
+            best_distance = calculate_distance(new_tour, distance);
+            exit = true;
+            for(int i = 0; i < tour.length; i++) {
+                for(int j = i + 1; j < tour.length - 1; j++) {
+                    new_tour = optSwap(actual_tour, i, j);
+                    new_distance = calculate_distance(new_tour, distance);
+                    System.out.println(Arrays.toString(new_tour) + "\t" + new_distance);
+                    if(new_distance < best_distance) {
+                        actual_tour = new_tour;
+                        best_distance = new_distance;
+                        exit = false;
+                    }
+                }
+            }
+            System.out.println("\nThis is the best tour:" + Arrays.toString(actual_tour) + "\t" + best_distance);
+            
+        } while(exit != true);
+    }
+
     // 2-OPT method to swap tour
     private int[] optSwap(int[] tour, int i, int j) {
         int[] new_tour = new int[tour.length];
@@ -80,16 +113,8 @@ public class hw_4 {
             slice_2[slice_2.length - k - 1] = temp; 
         }
         int[] slice_3 = Arrays.copyOfRange(tour, j, tour.length); // The the rest of the tour
-        
-        //System.out.println(Arrays.toString(slice_1));
-        //System.out.println(Arrays.toString(slice_2));
-        //System.out.println(Arrays.toString(slice_3));
-
+        // Adding last node
         new_tour = IntStream.concat(Arrays.stream(slice_1), IntStream.concat(Arrays.stream(slice_2), Arrays.stream(slice_3))).toArray();
-        
-        //int[] slice_4 = {new_tour[0]};
-        //int[] final_tour = IntStream.concat(Arrays.stream(new_tour), Arrays.stream(slice_4)).toArray();
-        
         new_tour[new_tour.length - 1] = new_tour[0];
 
         return new_tour;
