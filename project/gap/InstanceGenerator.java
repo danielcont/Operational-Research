@@ -46,19 +46,19 @@ public class InstanceGenerator {
         createFile(instances, m, n, cmin, cmax, rmin, rmax);
     }
 
-    // Method that creates a file
+    // Method that creates a file.
     private void createFile(int instances, int m, int n, double cmin, double cmax, int rmin, int rmax) {
         do {
             String path = "";
             try {
-                // Delay to get different time in the instances file name
-                Thread.sleep(1000);
+                // Delay to get different time in the instances file name.
+                Thread.sleep(1000); // Delay of 1 second
                 DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd - HH mm ss");
                 Date date = new Date();
                 String strDate = dateFormat.format(date);
                 path = path + m + "x" + n + " " + strDate + ".txt";
                 try {
-                    // Path to access to the 'instances' folder
+                    // Path to access to the 'instances' folder.
                     File f = new File(System.getProperty("user.dir"));
                     File Parent = f.getParentFile();
                     String instances_folder = Parent.getPath() + File.separator + "instances";
@@ -68,7 +68,7 @@ public class InstanceGenerator {
                     int[][][] values = new int[2][m][n];
                     String txt = ""; 
 
-                    // Write cost and resources needed for each task to each agent
+                    // Write cost and resources needed for each task to each agent.
                     for(int table = 0; table < 2; table++) {
                         for(int i = 0; i < m; i++) {
                             for(int j = 0; j < n; j++) {
@@ -85,10 +85,10 @@ public class InstanceGenerator {
                             }
                             instance.write("\n");
                         }
-                        instance.write("\n\n");
+                        instance.write("\n");
                     }
 
-                    // Write resources available from agents
+                    // Write resources available from agents.
                     float sum_resources;
                     float d = (float)(5 * m + 25) / (float)(15 * (m + 1));
                     for(int i = 0; i < m; i++) {
