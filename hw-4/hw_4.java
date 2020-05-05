@@ -8,14 +8,17 @@ public class hw_4 {
         hw_4 tsp = new hw_4();
         int[] tour = {1, 2, 3, 4, 5, 6, 7, 8};
         int[][] distance = tsp.get_distances();
-        //System.out.println(Arrays.deepToString(distance));
+        System.out.println("Distance: " + Arrays.deepToString(distance));
         
-        //tsp.first_found(tour, distance);
+        System.out.println("*First Found Solution*");
+        tsp.first_found(tour, distance);
+        System.out.println("\n*Best Found Solution*");
         tsp.best_found(tour, distance);
     }
 
     private int[][] get_distances(){
         double[][] coordinates = {
+        //   x  - y
             {86, 37},
             {17, 94},
             {3, 65},
@@ -57,7 +60,8 @@ public class hw_4 {
                 for(int j = i + 1; j < tour.length - 1; j++) {
                     new_tour = optSwap(actual_tour, i, j);
                     int new_distance = calculate_distance(new_tour, distance);
-                    System.out.println(Arrays.toString(new_tour) + "\t" + new_distance);
+                    int dx = new_distance - best_distance;
+                    System.out.println(Arrays.toString(new_tour) + "\t" + dx);
                     if(new_distance < best_distance) {
                         actual_tour = new_tour;
                         best_distance = new_distance;
@@ -86,7 +90,7 @@ public class hw_4 {
             best_distance = calculate_distance(new_tour, distance);
             exit = true;
             for(int i = 0; i < tour.length; i++) {
-                for(int j = i + 1; j < tour.length - 1; j++) {
+                for(int j = i + 1; j < tour.length; j++) {
                     new_tour = optSwap(actual_tour, i, j);
                     new_distance = calculate_distance(new_tour, distance);
                     System.out.println(Arrays.toString(new_tour) + "\t" + new_distance);
@@ -116,7 +120,7 @@ public class hw_4 {
         // Adding last node
         new_tour = IntStream.concat(Arrays.stream(slice_1), IntStream.concat(Arrays.stream(slice_2), Arrays.stream(slice_3))).toArray();
         new_tour[new_tour.length - 1] = new_tour[0];
-
+        
         return new_tour;
     }
 

@@ -9,18 +9,19 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Date;
 
-public class Instance_generator {
+public class InstanceGenerator {
 
     public static void main(String[] args) {
-        Instance_generator instance = new Instance_generator();
-        //instance.input_data();
-        instance.create_file(1, 3, 5, 1.0, 9.0, 11, 19);
+        InstanceGenerator instance = new InstanceGenerator();
+        instance.inputData();
     }
 
     // Method to ask user for input data. PROMPT ONLY
-    private void input_data() {
+    protected void inputData() {
         Scanner sc = new Scanner(System.in);
-
+        
+        System.out.println("GENERATE RANDOM EXPERIMENTAL DATA");
+        
         System.out.print("How many instances do you want? -> ");
         int instances = sc.nextInt();
 
@@ -42,11 +43,11 @@ public class Instance_generator {
         System.out.print("Maximum resource -> ");
         int rmax = sc.nextInt();
 
-        create_file(instances, m, n, cmin, cmax, rmin, rmax);
+        createFile(instances, m, n, cmin, cmax, rmin, rmax);
     }
 
     // Method that creates a file
-    private void create_file(int instances, int m, int n, double cmin, double cmax, int rmin, int rmax) {
+    private void createFile(int instances, int m, int n, double cmin, double cmax, int rmin, int rmax) {
         do {
             String path = "";
             try {
