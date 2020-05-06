@@ -78,11 +78,9 @@ public class GetFile {
             String[] arr = listItem.split("\t");
             if(!listItem.equals("")) {
                 for(int k = 0; k < arr.length; k ++) {
-                    System.out.println(j);
                     data[i][j][k] = Integer.parseInt(arr[k]);
                 }
                 j ++;
-                //System.out.println(listItem);
             } else {
                 i ++;
                 j = 0;
