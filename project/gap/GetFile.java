@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class GetFile {
 
     public static void main(String[] args) {
@@ -33,7 +32,7 @@ public class GetFile {
         File[] listOfFiles = folder.listFiles();
 
         // Printing all posible options for the user.
-        System.out.println("\nFiles:");
+        System.out.println("\nAvailable Files:");
         for(int i = 0; i < listOfFiles.length; i++) {
             if(listOfFiles[i].isFile() && (i != 0)) {
                 System.out.println(i + ". " + listOfFiles[i].getName());
@@ -60,8 +59,10 @@ public class GetFile {
                 flag = true;
             }
         } while(flag);
-        int m = Integer.parseInt(listOfFiles[option].getName().substring(0, 1));
-        int n = Integer.parseInt(listOfFiles[option].getName().substring(2, 3));
+        int index_m = listOfFiles[option].getName().indexOf('x');
+        int m = Integer.parseInt(listOfFiles[option].getName().substring(0, index_m));
+        int index_n = listOfFiles[option].getName().indexOf(' ');
+        int n = Integer.parseInt(listOfFiles[option].getName().substring(index_m + 1, index_n));
 
         int[][][] data = new int[3][m][n];
 

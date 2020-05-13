@@ -20,7 +20,7 @@ public class InstanceGenerator {
     protected void inputData() {
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("GENERATE RANDOM EXPERIMENTAL DATA");
+        System.out.println("\nGENERATE RANDOM EXPERIMENTAL DATA\n");
         
         System.out.print("How many instances do you want? -> ");
         int instances = sc.nextInt();
@@ -97,8 +97,7 @@ public class InstanceGenerator {
                             sum_resources += values[1][i][j];
                         }
                         sum_resources /= m;
-                        int bi = (int)(1.8 * d * sum_resources);
-                        //txt = bi + "\n";
+                        int bi = (int)Math.round(((n / m) * 0.85 * d * sum_resources));
                         instance.write(bi + "\n");
                     }
 
